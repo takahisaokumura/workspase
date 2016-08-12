@@ -13,7 +13,7 @@ BOTっぽい何か
 
 # プログラム情報
 __author__ = 'Masaya SUZUKI'
-__version__ = '1.0.2'
+__version__ = '1.0.2.1'
 
 
 class CallbackResource:
@@ -65,27 +65,14 @@ class CallbackResource:
                     res_data['content']['text'] = 'なんだと(# ﾟДﾟ)'
                 elif pr[0]:  # 受信データが暴言でなく、かつ、正規表現『.+っほー.*』に当てはまるパターンならば、『ほっほー(・∀・)』を返す
                     res_data['content']['text'] = 'ほっほー(・∀・)'
-                else:  # patternで定義されているパターンに当てはまらないならば、係り受け解析を行い、結果を返す
+                else:  # patternで定義されているパターンに当てはまらないならば、係り受け解析を行い、ひらがなで返す
                     # 係り受け解析結果
                     da = requests.post('http://jlp.yahooapis.jp/DAService/V1/parse',
                                        {'appid': os.environ['YAHOO_JAPAN_WEB_SERVICE_APPLICATION_ID'],
                                         'sentence': req_data['content']['text']})
 
-                    # 結果
-                    r = list()
-                    r.append('\t'.join(['文節番号', '修飾先の文節番号', '表記', 'よみがな', '基本形表記', '品詞', '形態素情報']))
-
-                    for c in bs4.BeautifulSoup(da.content, "html.parser").find_all('chunk'):
-                        for m in c.find_all('morphem'):
-                            r.append('\t'.join([t.text.replace('\n', '{改行}') for t in [c.find('id'),
-                                                                                       c.find('dependency'),
-                                                                                       m.find('surface'),
-                                                                                       m.find('reading'),
-                                                                                       m.find('baseform'),
-                                                                                       m.find('pos'),
-                                                                                       m.find('feature')]]))
-
-                    res_data['content']['text'] = '\n'.join(r)
+                    res_data['content']['text'] = ''.join([r.text for r in bs4.BeautifulSoup(da.content, "html.parser")
+                                                          .find_all('reading')])
             else:  # 受信データが文字でないならば、オウム返しする
                 res_data['content'] = req_data['content']
 
