@@ -16,10 +16,10 @@
       "description": "LINE Channel secret",
       "required": true
     },
-    "LINE_CHANNEL_MID": {
-      "description": "LINE Channel MID",
-      "required": true
-    },
+//    "LINE_CHANNEL_MID": {
+//      "description": "LINE Channel MID",
+//      "required": true
+//    },
     "YAHOO_JAPAN_WEB_SERVICE_APPLICATION_ID": {
       "description": "Yahoo! JAPAN Web Service Application ID",
       "required": true
