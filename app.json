@@ -1,8 +1,10 @@
 {
   "name": "Botっぽい何か",
   "description": "LINE BOT made by SUZUKI",
-  "website": "https://github.com/massongit/LINE-BOT",
-  "repository": "https://github.com/massongit/LINE-BOT",
+  "website": "https://github.com/takahisaokumura/workspase",
+  //"website": "https://github.com/massongit/LINE-BOT",
+  "repository": "https://github.com/takahisaokumura/workspase",
+  //"repository": "https://github.com/massongit/LINE-BOT",
   "keywords": [
     "python"
   ],
